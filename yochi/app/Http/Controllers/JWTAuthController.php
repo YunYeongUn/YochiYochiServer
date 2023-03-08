@@ -68,4 +68,17 @@ class JWTAuthController extends Controller
             'expires_in' => Auth::guard('api')->factory()->getTTL() * 60
         ]);
     }
+
+    public function refresh() { // 토큰재발행
+        return $this->respondWithToken(Auth::guard('api')->refresh());
+    }
+
+    public function logout() { // 로그아웃
+        Auth::guard('api')->logout();
+    
+        return response()->json([
+            'status' => 'success',
+            'message' => 'logout'
+        ], 200);
+    }
 }

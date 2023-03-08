@@ -17,6 +17,13 @@ class VerifyCsrfToken extends Middleware
 
         '/JWTregister',
         '/JWTlogin',
-        '/api/user'
+        '/JWTlogout',
+        '/api/user',
+        '/api/refresh',
+        '/items/store',
+        'items/{id}',
+        '/comments/store',
+        '/comments/{board_id}/{id}/{comment_id}',
+        '/{board_id}/{id}',
     ];
 }

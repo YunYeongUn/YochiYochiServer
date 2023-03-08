@@ -15,11 +15,16 @@ use App\Http\Controllers\JWTAuthController;
 |
 */
 
+
+Route::post('/JWTregister', [JWTAuthController::class,'register'])->name('api.jwt.register'); // JWT 회원가입
+
+Route::post('/JWTlogin', [JWTAuthController::class,'login'])->name('api.jwt.login'); // JWT 로그인 (최초토큰발행)
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('unauthorized', function() {
+Route::get('unauthorized', function() { // 인증실패에러
     return response()->json([
         'status' => 'error',
         'message' => 'Unauthorized'
@@ -27,5 +32,7 @@ Route::get('unauthorized', function() {
 })->name('api.jwt.unauthorized');
 
 Route::group(['middleware' => 'auth:api'], function(){
-    Route::get('user', [JWTAuthController::class,'user'])->name('api.jwt.user');
+    Route::get('user', [JWTAuthController::class,'user'])->name('api.jwt.user'); // 유저 정보 가져오기
+    Route::get('refresh', [JWTAuthController::class,'refresh'])->name('api.jwt.refresh'); // 토큰재발행
+    Route::get('logout', [JWTAuthController::class,'logout'])->name('api.jwt.logout'); // 로그아웃
 });

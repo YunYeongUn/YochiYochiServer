@@ -24,9 +24,6 @@ use Illuminate\Support\Facades\Redirect;
 |
 */
 
-Route::post('/JWTregister', [JWTAuthController::class,'register'])->name('api.jwt.register'); // JWT 회원가입
-Route::post('/JWTlogin', [JWTAuthController::class,'login'])->name('api.jwt.login'); // JWT 로그인
-
 
 // 모션
 /* Route::get('/motion',function(){
@@ -39,31 +36,11 @@ Route::get('/pose',function(){ // 모션인식
  */
 
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
 Route::middleware('auth')->group(function () { // 프로필
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-Route::get('/about', function() {
-    return Inertia::render('AboutPage');
-});
-
-Route::get('/services', function() {
-    return Inertia::render('ServicePage');
-});
-
-// Route::get('/board/1', function() {
-//     return Inertia::render('PostListPage');
-// });
-
-// Route::get('/board/2', function() {
-//     return Inertia::render('PostListPage');
-// });
 
 Route::get('board/{board_id}',[PostController::class,'index'])->name('board.index'); // 게시판 목록 라우팅
 Route::get('board/{board_id}/{id}',[PostController::class,'show'])->name('board.show'); // 글 상세보기 ( Read )
@@ -108,7 +85,7 @@ Route::middleware(['cors'])->group(function(){ // cors, 되는지모름
     Route::get('/csrf_token', function(){
         return csrf_token();
     });
-    Route::post('/boardTest','Controller@board.index');
+    //Route::post('/boardTest','Controller@board.index');
 });
 
 
