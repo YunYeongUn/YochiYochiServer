@@ -14,16 +14,21 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         // 여기 클라이언트 주소?
         //'/www.localhost:3000'
-
-        '/JWTregister',
+        '/api/*',
+        
+        /* '/JWTregister',
         '/JWTlogin',
-        '/JWTlogout',
+        '/logout',
         '/api/user',
         '/api/refresh',
+
         '/items/store',
         'items/{id}',
+
         '/comments/store',
         '/comments/{board_id}/{id}/{comment_id}',
-        '/{board_id}/{id}',
+
+        'board/{board_id}/{id}',
+        '/api/board/{board_id}/store' */
     ];
 }

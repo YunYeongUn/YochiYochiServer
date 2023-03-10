@@ -33,14 +33,21 @@ class CommentController extends Controller
             'writer' => auth() -> id(),
             'comment' => request() -> comment
         ]);
-        return Redirect::back();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Comment Stored'
+        ], 200);
         
     }
 
-    public function destroy($board_id,$id,$comment_id){ // 댓글 삭제 Delete
+    public function destroy($comment_id){ // 댓글 삭제 Delete
         $pocket = Comment::where('id', $comment_id) -> first();
         $pocket -> delete();
 
-        return Redirect::to('/board/'.$board_id.'/'.$id);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Comment Deleted'
+        ], 200);
     }
 }

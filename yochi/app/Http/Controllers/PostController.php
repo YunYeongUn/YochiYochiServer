@@ -29,24 +29,10 @@ class PostController extends Controller
         
        
         $returnJson = json_encode($posts);
-        //echo($returnJson);
-
-        
-        /* return Inertia::render('PostListPage', [
-            'posts' => $posts,
-            
-        ]); */
 
         return $returnJson;
     }
 
-    public function create($board_id) // 글작성페이지로 이동
-    {
-        // return view('board.create',[
-        //     'thisboard' => $board_id,
-        // ]);
-        return Inertia::render('WritePage');
-    }
 
     public function store(Request $request, $board_id) // 작성글 저장`  
     {   
@@ -72,8 +58,11 @@ class PostController extends Controller
         
         $post = Post::create($values);
         $id = $post->id;
-        // return redirect('post/'.$board_id.'/'.$post->id);
-        return Redirect::to('/board/'.$board_id.'/'.$id);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'written'
+        ], 200);
+        
     }
 
     public function show($board_id, $id) // 글 상세보기 Read & 댓그 목록
@@ -105,11 +94,11 @@ class PostController extends Controller
         return $returnJson2;
     }
 
-    public function edit($board_id, $id){ // 글 수정페이지로
+ /*    public function edit($board_id, $id){ // 글 수정페이지로
         $pocket = Post::where('id', $id) -> first();
         // return view('board.edit', compact('pocket'));
         return Inertia::render('EditPage', \compact('pocket'));
-    }
+    } */
 
     public function update(Request $request, $board_id, $id){ // 글 수정
         $validation = $request -> validate([
@@ -123,7 +112,10 @@ class PostController extends Controller
         $pocket -> save();
 
         // return redirect('/post/'.$board_id.'/'.$pocket->id); 
-        return Redirect::to('/board/'.$board_id.'/'.$id);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'updated'
+        ], 200);
     }
 
     public function destroy($board_id, $id){ // 글 삭제
@@ -131,6 +123,9 @@ class PostController extends Controller
         $pocket -> delete();
 
         // return redirect('/post/'.$board_id);
-        return Redirect::route('board.index', $board_id);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'deleted'
+        ], 200);
     }
 }

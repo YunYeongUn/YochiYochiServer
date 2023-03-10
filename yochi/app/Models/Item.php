@@ -14,7 +14,8 @@ class Item extends Model
     protected $fillable = [
         'item_title',
         'item_content',
-        'category'
+        'category',
+        'price'
     ];
 
     protected $guarded = [
@@ -25,5 +26,10 @@ class Item extends Model
 
     public function categories(){
         return $this->belongsTo('\App\Models\Category','category','id');
+    }
+
+    public function itemreviews()
+    {
+        return $this->hasMany('\App\Models\Itemreview', 'item_id','id');
     }
 }
