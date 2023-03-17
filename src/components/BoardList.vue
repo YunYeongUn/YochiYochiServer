@@ -18,9 +18,11 @@
         </tr>
 
         <tr v-for="(row, idx) in postlist" :key="idx">
-          <td>{{ no - idx }}</td>
+          <td>{{ idx }}</td>
           <td class="txt_left">
-            <a href="">{{ row.post_title }}</a>
+            <router-link :to="'community/'.concat(row.id)">{{
+              row.post_title
+            }}</router-link>
           </td>
           <td>{{ row.users.name }}</td>
           <td>{{ row.created_at.substring(0, 10) }}</td>
@@ -53,7 +55,7 @@ export default {
   methods: {
     async getData() {
       await this.axios
-        .get("http://localhost/api/board/1")
+        .get("http://localhost/api/community")
         .then((res) => {
           console.log(res.staus);
           console.log(res.data);

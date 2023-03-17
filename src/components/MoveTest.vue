@@ -164,3 +164,22 @@ export default {
   },
 };
 </script>
+
+<style>
+.container {
+  margin: 2%;
+  position: relative;
+  width: 100%;
+  height: 80%;
+}
+.canvas-wrapper,
+#output,
+#video,
+#e_canvas {
+  position: absolute;
+  margin: 0;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+}
+</style>

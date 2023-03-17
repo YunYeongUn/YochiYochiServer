@@ -5,6 +5,7 @@ import Profile from "../views/Profile.vue";
 import Community from "../components/BoardList.vue";
 import Qna from "../components/QnaList.vue";
 import Movenet from "../components/MoveTest.vue";
+import PostShow from "../components/Post.vue";
 
 const routes = [
   {
@@ -23,12 +24,12 @@ const routes = [
     component: Profile,
   },
   {
-    path: "/board/1",
+    path: "/community",
     name: "community",
     component: Community,
   },
   {
-    path: "/board/2",
+    path: "/qna",
     name: "Qna",
     component: Qna,
   },
@@ -36,6 +37,16 @@ const routes = [
     path: "/movenet",
     name: "movenet",
     component: Movenet,
+  },
+  {
+    path: "/community/:id",
+    name: "Postshow",
+    component: PostShow,
+  },
+  {
+    path: "/qna/:id",
+    name: "QnAshow",
+    component: PostShow,
   },
 ];
 

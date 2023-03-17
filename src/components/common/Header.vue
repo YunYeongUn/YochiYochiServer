@@ -4,8 +4,8 @@
     <div>
       <ul>
         <li><a href="/">홈</a></li>
-        <li><a href="/board/1">자유게시판</a></li>
-        <li><a href="/board/2">QnA</a></li>
+        <li><a href="/community">자유게시판</a></li>
+        <li><a href="/qna">QnA</a></li>
         <li><a href="/movenet">Movenet</a></li>
       </ul>
     </div>

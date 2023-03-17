@@ -17,10 +17,12 @@
           <th>글쓴이</th>
           <th>날짜</th>
         </tr>
-        <tr v-for="(row, idx) in postlist" :key="idx">
+        <tr v-for="(row, idx) in qnalist" :key="idx">
           <td>{{ no - idx }}</td>
           <td class="txt_left">
-            <a href="">{{ row.post_title }}</a>
+            <router-link :to="'qna/'.concat(row.id)">{{
+              row.qna_title
+            }}</router-link>
           </td>
           <td>{{ row.answer }}</td>
           <td>{{ row.users.name }}</td>
@@ -44,7 +46,7 @@ export default {
   data() {
     //변수생성
     return {
-      postlist: "",
+      qnalist: "",
       no: "",
     };
   },
@@ -54,11 +56,11 @@ export default {
   methods: {
     async getData() {
       await this.axios
-        .get("http://localhost/api/board/2")
+        .get("http://localhost/api/qna")
         .then((res) => {
           console.log(res.staus);
           console.log(res.data);
-          this.postlist = res.data;
+          this.qnalist = res.data;
         })
         .catch((error) => {
           console.log(error);
