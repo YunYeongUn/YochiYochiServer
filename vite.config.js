@@ -8,4 +8,10 @@ export default defineConfig({
       refresh: true,
     }),
   ],
+  commonjsOptions: {
+    esmExternals: true,
+  },
+  define: {
+    VITE_IS_LOGIN: JSON.stringify(process.env.VITE_IS_LOGIN),
+  },
 });

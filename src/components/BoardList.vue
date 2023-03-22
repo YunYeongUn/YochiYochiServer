@@ -37,7 +37,8 @@
 </template>
 
 <script>
-import { createApp } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
 
 export default {
   data() {
@@ -49,24 +50,17 @@ export default {
   },
 
   mounted() {
-    this.getData();
+    this.list();
   },
 
   methods: {
-    async getData() {
-      await this.axios
-        .get("http://localhost/api/community")
-        .then((res) => {
-          console.log(res.staus);
-          console.log(res.data);
-          this.postlist = res.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          console.log("항상 마지막에 실행");
-        });
+    async list() {
+      try {
+        const postlist = await this.$store.dispatch("community/fetchPosts");
+        this.postlist = postlist;
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };

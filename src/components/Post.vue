@@ -16,24 +16,21 @@ export default {
   },
 
   mounted() {
-    this.getData();
+    this.show();
   },
 
   methods: {
-    async getData() {
-      await this.axios
-        .get("http://localhost/api/community/" + this.$route.params.id)
-        .then((res) => {
-          /* console.log(res.staus);
-          console.log(res.data); */
-          this.post = res.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        })
-        .finally(() => {
-          console.log("글상세페이지");
-        });
+    async show() {
+      try {
+        const showpost = await this.$store.dispatch(
+          "community/getPost",
+          this.$route.params.id
+        );
+        this.post = showpost;
+        console.log(this.post);
+      } catch (err) {
+        console.log(err);
+      }
     },
   },
 };
