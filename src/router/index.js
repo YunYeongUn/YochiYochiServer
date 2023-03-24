@@ -51,11 +51,6 @@ const routes = [
     name: "QnAshow",
     component: PostShow,
   },
-  {
-    path: "/login",
-    name: "login",
-    component: Login,
-  },
 ];
 
 export default function (store) {
@@ -71,13 +66,14 @@ export default function (store) {
       //@@ refreshToken이 없을 경우 로그인 창 띄우기
       if (refresh === null) {
         console.warn("need login...");
+
         store.commit("auth/needLogin", true);
       } else if (access === null && refresh !== null) {
         //refreshToken은 있고 accessToken만 있을 경우 재발급요청
-        await store.dispatch("auth/refreshToken");
+        await store.dispatch("auth/verifyToken");
       } else {
         //토큰이 다 있다면 페이지 이동 전 토큰 검증
-
+        console.log("토큰인증시도...");
         await store.dispatch("auth/verifyToken");
       }
       return next();

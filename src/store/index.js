@@ -1,4 +1,5 @@
 import { createStore } from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 import auth from "./auth/auth";
 import community from "./Community/community";
@@ -21,6 +22,11 @@ const store = createStore({
     auth,
     community,
   },
+  plugins: [
+    createPersistedState({
+      paths: ["auth"],
+    }),
+  ],
 });
 
 export default store;

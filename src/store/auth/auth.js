@@ -1,6 +1,5 @@
 import axios from "../../plugins/axios";
 import { useCookies } from "vue3-cookies";
-const { cookies } = useCookies();
 
 export default {
   namespaced: true,
@@ -21,7 +20,7 @@ export default {
     async login({ commit }, params) {
       try {
         const rs = await axios.post("http://localhost/api/login", params);
-        console.log(rs);
+
         if (rs.data) {
           const access = rs.data.access_token;
           const refresh = rs.data.refresh_token;
@@ -39,16 +38,18 @@ export default {
     async verifyToken({ commit }) {
       try {
         const rs = await axios.post("http://localhost/api/auth");
+
         if (rs.data.ok) {
+          console.log("verify success");
           return true;
         } else {
-          console.error(rs.data.msg);
+          console.error("토큰인증실패");
           alert(rs.data.result);
           commit("needLogin", true);
           return false;
         }
       } catch (err) {
-        console.error(err);
+        console.error("에러", err);
         if (err.response && err.response.status === 401) {
           // Unauthorized error: JWT token is invalid or expired
           alert("Your session has expired. Please log in again.");
@@ -62,10 +63,11 @@ export default {
         throw err;
       }
     },
-    async refreshToken({ commit }) {
+    /* async refreshToken({ commit }) {
       try {
         const rs = await axios.post("http://localhost/api/refresh");
         if (rs.data.ok) {
+          console.log(rs.data);
           const access = rs.data.access_token;
           const { cookies } = useCookies();
           cookies.set("accessToken", access, import.meta.env.VITE_ACCESS_TIME);
@@ -76,6 +78,19 @@ export default {
           commit("needLogin", true);
           return false;
         }
+      } catch (err) {
+        console.error(err);
+        throw err;
+      }
+    }, */
+    async logout({ commit }) {
+      try {
+        const { cookies } = useCookies();
+        cookies.remove("accessToken");
+        cookies.remove("refreshToken");
+        console.log("쿠키삭제완료");
+        commit("needLogin", true);
+        return true;
       } catch (err) {
         console.error(err);
         throw err;
